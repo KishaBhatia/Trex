@@ -7,7 +7,7 @@ var obstaclesGroup, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obsta
 var gameOver,restart;
 
 var score;
-localStorage.HighestScore=0;
+//localStorage.HighestScore=0;
 
 var PLAY=1;
 var gameState=PLAY;
@@ -52,12 +52,12 @@ function setup() {
   cloudsGroup = new Group();
   obstaclesGroup = new Group();
   
-  gameOver=createSprite(200,100);
+  gameOver=createSprite(300,100);
   gameOver.addImage("gameOver",gameOverImg);
   gameOver.scale=0.5;
   gameOver.visible=false;
   
-  restart=createSprite(200,140);
+  restart=createSprite(350,140);
   restart.addImage("restart",restartImg);
   restart.scale=0.5;
   restart.visible=false;
@@ -71,13 +71,16 @@ function draw() {
 
 if(gameState===PLAY){
   
-  ground.velocityX = -4;
+  ground.velocityX =-(6+3*score/100);
   
   score = score + Math.round(getFrameRate()/60);
-  
+  if(score>0 && score%100===0){
+    checkPointSound.play();
+  }
    
   if(keyDown("space")) {
-    trex.velocityY = -10;
+    trex.velocityY = -14;
+    jumpSound.play();
   }
   
   trex.velocityY = trex.velocityY + 0.8
@@ -90,6 +93,7 @@ if(gameState===PLAY){
   spawnObstacles();
   
   if(trex.isTouching(obstaclesGroup)){
+    dieSound.play();
     gameState=END;
   }
 }
@@ -157,7 +161,7 @@ function spawnClouds() {
 function spawnObstacles() {
   if(frameCount % 60 === 0) {
     var obstacle = createSprite(600,165,10,40);
-    obstacle.velocityX = -4;
+    obstacle.velocityX = -(6+3*score/100);
     
     //generate random obstacles
     var rand = Math.round(random(1,6));
