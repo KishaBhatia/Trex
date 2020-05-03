@@ -49,7 +49,7 @@ function setup() {
   ground = createSprite(200,180,400,20);
   ground.addImage("ground",groundImage);
   ground.x = ground.width /2;
-  ground.velocityX = speed2
+  ground.velocityX = -(6 + 3*score/100);
   
   gameOver = createSprite(300,100);
   gameOver.addImage(gameOverImg);
@@ -76,16 +76,13 @@ function draw() {
   background(255);
   text("Score: "+ score, 500,50);
   
-  speed1=random(5,10);
-  speed2=random(8,13);
-  
   if (gameState===PLAY){
     score = score + Math.round(getFrameRate()/60);
     
   
     if(keyDown("space") && trex.y >= 159) {
       jumpSound.play();
-      trex.velocityY = speed1;
+      trex.velocityY = -5;
     }
   
     trex.velocityY = trex.velocityY + 0.8
@@ -159,7 +156,7 @@ function spawnClouds() {
 function spawnObstacles() {
   if(frameCount % 60 === 0) {
     var obstacle = createSprite(600,165,10,40);
-    obstacle.velocityX =speed2;
+    obstacle.velocityX = -(6 + 3*score/100);
     
     //generate random obstacles
     var rand = Math.round(random(1,6));
