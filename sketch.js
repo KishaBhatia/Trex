@@ -9,11 +9,8 @@ var cloudsGroup, cloudImage;
 var obstaclesGroup, obstacle1, obstacle2, obstacle3, obstacle4, obstacle5, obstacle6;
 
 var score=0;
-var speed1;
-var speed2;
 
 var gameOver, restart;
-
 
 function preload(){
   trex_running =   loadAnimation("trex1.png","trex3.png","trex4.png");
